@@ -143,9 +143,9 @@ int game_run(void) {
                 accumulator -= FIXED_DT;
             }
 
-            camera_follow(&cam,
-                player.x,
-                player.y);
+            camera_follow(&cam, &player);
+                //player.x,
+                //player.y);
 
             render_game(renderer,
                 &map,
