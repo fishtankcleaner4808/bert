@@ -2,13 +2,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include "constants.h"
-#include "tilemap.h"
-
-static float clamp(float v, float min, float max) {
-    if (v < min) return min;
-    if (v > max) return max;
-    return v;
-}
+#include "tools.h"
 
 void enemy_init(Enemy *enemy) {
     enemy->x = 500;
@@ -36,7 +30,7 @@ void enemy_update(Enemy *enemy, Tilemap *map) {
             edge_x = (int)(next_x / TILE_SIZE);
 
         int foot_y = (int)((enemy->y + SPRITE_SIZE) / TILE_SIZE);
-        bool floor_ahead = tilemap_is_solid(map, edge_x, foot_y);
+        bool floor_ahead = is_px_solid(map, edge_x, foot_y);
 
         if (!floor_ahead)
             enemy->direction *= -1.0f;
@@ -54,7 +48,7 @@ void enemy_update(Enemy *enemy, Tilemap *map) {
         int tile_bottom = (int)((new_y + SPRITE_SIZE) / TILE_SIZE);
 
         for (int x = tile_left; x <= tile_right; x++)
-            if (tilemap_is_solid(map, x, tile_bottom)) {
+            if (is_px_solid(map, x, tile_bottom)) {
                 new_y = tile_bottom * TILE_SIZE - SPRITE_SIZE;
                 enemy->y_velocity = 0;
                 enemy->on_ground = true;

@@ -2,10 +2,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <stdbool.h>
 #include "constants.h"
-
-static float lerp(float a, float b, float t) {
-    return a + (b - a) * t;
-}
+#include "tools.h"
 
 static void draw_text(SDL_Renderer *renderer,
     TTF_Font *font,
@@ -14,9 +11,7 @@ static void draw_text(SDL_Renderer *renderer,
     int y)
 {
     SDL_Color color = {255, 255, 255, 255};
-
     SDL_Surface *surface = TTF_RenderText_Blended(font, text, color);
-
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 
     SDL_Rect rect = {

@@ -2,13 +2,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include "constants.h"
-#include "tilemap.h"
-
-static float clamp(float v, float min, float max) {
-    if (v < min) return min;
-    if (v > max) return max;
-    return v;
-}
+#include "tools.h"
 
 void player_init(Player *player) {
     player->x = 100;
@@ -49,7 +43,7 @@ void player_update(Player *p, Tilemap *map) {
         int tile_right = (int)((new_x + SPRITE_SIZE) / TILE_SIZE);
 
         for (int y = tile_top; y <= tile_bottom; y++)
-            if (tilemap_is_solid(map, tile_right, y)) {
+            if (is_px_solid(map, tile_right, y)) {
                 new_x = tile_right * TILE_SIZE - SPRITE_SIZE;
                 p->x_velocity = 0;
                 break;
@@ -59,7 +53,7 @@ void player_update(Player *p, Tilemap *map) {
     if (p->x_velocity < 0) {
         int tile_left = (int)(new_x / TILE_SIZE);
         for (int y = tile_top; y <= tile_bottom; y++)
-            if (tilemap_is_solid(map, tile_left, y)) {
+            if (is_px_solid(map, tile_left, y)) {
                 new_x = (tile_left + 1) * TILE_SIZE;
                 p->x_velocity = 0;
                 break;
@@ -80,7 +74,7 @@ void player_update(Player *p, Tilemap *map) {
         int tile_bottom = (int)((new_y + SPRITE_SIZE) / TILE_SIZE);
 
         for (int x = tile_left; x <= tile_right; x++)
-            if (tilemap_is_solid(map, x, tile_bottom)) {
+            if (is_px_solid(map, x, tile_bottom)) {
                 new_y = tile_bottom * TILE_SIZE - SPRITE_SIZE;
                 p->y_velocity = 0;
                 p->on_ground = true;

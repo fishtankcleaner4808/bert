@@ -48,9 +48,3 @@ Tilemap tilemap_load(const char *filename) {
     return map;
 }
 
-bool tilemap_is_solid(Tilemap *map, int x, int y) {
-    if (x < 0 || y < 0 || x >= map->width || y >= map->height)
-        return true;
-
-    return map->tiles[y * map->width + x] == 1;
-}

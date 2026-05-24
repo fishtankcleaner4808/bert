@@ -1,16 +1,7 @@
 #include <SDL2/SDL.h>
 #include <stdbool.h>
 #include "constants.h"
-
-static float clamp(float v, float min, float max) {
-    if (v < min) return min;
-    if (v > max) return max;
-    return v;
-}
-
-static float lerp(float a, float b, float t) {
-    return a + (b - a) * t;
-}
+#include "tools.h"
 
 void camera_init(Camera *cam, Tilemap *map) {
     cam->x = 0;
