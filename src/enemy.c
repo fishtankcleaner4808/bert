@@ -1,17 +1,8 @@
-#include "enemy.h"
-
-#include "../player/player.h"
-
 #include <SDL2/SDL.h>
 #include <math.h>
-
-#define FIXED_DT (1.0f / 60.0f)
-
-#define TILE_SIZE 50
-#define SPRITE_SIZE 50.0f
-
-#define GRAVITY 2500.0f
-#define MAX_FALL_SPEED 1000.0f
+#include <stdbool.h>
+#include "constants.h"
+#include "tilemap.h"
 
 static float clamp(float v, float min, float max) {
     if (v < min) return min;

@@ -1,19 +1,8 @@
-#include "player.h"
+#include <SDL2/SDL.h>
+#include <stdbool.h>
 #include <math.h>
-
-#define FIXED_DT (1.0f / 60.0f)
-#define TILE_SIZE 50
-#define SPRITE_SIZE 50.0f
-
-#define MOVE_ACCEL 2000.0f
-#define MAX_SPEED_X 300.0f
-#define FRICTION 1800.0f
-
-#define GRAVITY 2500.0f
-#define MAX_FALL_SPEED 1000.0f
-
-#define JUMP_VELOCITY -1050.0f
-#define JUMP_CUT_MULT 0.4f
+#include "constants.h"
+#include "tilemap.h"
 
 static float clamp(float v, float min, float max) {
     if (v < min) return min;

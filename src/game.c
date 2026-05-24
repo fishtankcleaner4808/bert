@@ -1,18 +1,13 @@
-#include "game.h"
-
-#include "../player/player.h"
-#include "../enemy/enemy.h"
-#include "../tilemap/tilemap.h"
-#include "../camera/camera.h"
-#include "../render/render.h"
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdbool.h>
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
-#define FIXED_DT (1.0f / 60.0f)
+#include "constants.h"
+#include "player.h"
+#include "enemy.h"
+#include "tilemap.h"
+#include "camera.h"
+#include "render.h"
 
 typedef enum {
     GAME_STATE_MENU,
@@ -29,7 +24,7 @@ int game_run(void) {
     }
 
     SDL_Window *window = SDL_CreateWindow(
-        "Fritz Phase 1",
+        "Bert (phase 1)",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         WINDOW_WIDTH,

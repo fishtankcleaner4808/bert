@@ -1,22 +1,23 @@
-CC = gcc
-TARGET = bert
-CFLAGS = -Wall -Wextra -std=c99 `sdl2-config --cflags`
-LDFLAGS = -lSDL2 -lSDL2_ttf -lm
-SRC = \
-	main.c \
-	player/player.c \
-	enemy/enemy.c \
-	tilemap/tilemap.c \
-	camera/camera.c \
-	render/render.c \
-	game/game.c
+TARGET=bert
+CC=gcc
+CFLAGS=`sdl2-config --cflags` -c -Wall -Wextra -std=c99 -Iinclude
+LIBS=-lSDL2 -lSDL2_ttf -lm
 
-OBJ = $(SRC:.c=.o)
+SRCS=$(wildcard src/*.c)
+OBJS=$(SRCS:.c=.o)
+
+.PHONY: all run clean
 
 all: $(TARGET)
 
-$(TARGET): $(OBJ)
-	$(CC) $(OBJ) -o $(TARGET) $(LDFLAGS)
+$(TARGET): $(OBJS)
+	$(CC) $(OBJS) $(LIBS) -o $(TARGET)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $< -o $@
+
+run:
+	./$(TARGET)
 
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -f $(OBJS) $(TARGET)

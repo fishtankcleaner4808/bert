@@ -1,7 +1,7 @@
-#include "render.h"
-
-#define TILE_SIZE 50
-#define SPRITE_SIZE 50.0f
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <stdbool.h>
+#include "constants.h"
 
 static float lerp(float a, float b, float t) {
     return a + (b - a) * t;
@@ -42,7 +42,6 @@ void render_game(SDL_Renderer *renderer,
     float render_y = lerp(player->prev_y, player->y, alpha);
 
     SDL_SetRenderDrawColor(renderer, 20, 20, 20, 255);
-
     SDL_RenderClear(renderer);
 
     for (int y = 0; y < map->height; y++)

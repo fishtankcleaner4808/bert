@@ -1,8 +1,6 @@
-#include "camera.h"
-
-#define TILE_SIZE 50
-#define CAMERA_SMOOTHING 10.0f
-#define FIXED_DT (1.0f / 60.0f)
+#include <SDL2/SDL.h>
+#include <stdbool.h>
+#include "constants.h"
 
 static float clamp(float v, float min, float max) {
     if (v < min) return min;
