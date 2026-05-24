@@ -15,27 +15,53 @@ typedef enum {
 } GameState;
 
 int game_run(void) {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        SDL_Log("SDL_Init Error: %s", SDL_GetError());
         return 1;
-
-    if (TTF_Init() != 0) {
-        SDL_Quit();
-        return 2;
     }
 
-    SDL_Window *window = SDL_CreateWindow(
-        "Bert (phase 1)",
+    SDL_Window *window = SDL_CreateWindow("Bert (phase 1)",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         WINDOW_WIDTH,
         WINDOW_HEIGHT,
         0);
 
+    if (!window) {
+        SDL_Log("Window Error: %s", SDL_GetError());
+        SDL_Quit();
+        return 2;
+    }
+
     SDL_Renderer *renderer = SDL_CreateRenderer(window,
         -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-    TTF_Font *font = TTF_OpenFont("assets/BYTE.TTF", 36);
+    if (!renderer) {
+        SDL_Log("Renderer Error: %s", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 3;
+    }
+
+    if (TTF_Init() != 0) {
+        SDL_Log("TTF_Init Error: %s", TTF_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 4;
+    }
+
+    TTF_Font *font = TTF_OpenFont("assets/byte.ttf", 36);
+
+    if (!font) {
+        SDL_Log("Failed to load font file: byte.ttf: %s", TTF_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        TTF_Quit();
+        SDL_Quit();
+        return 5;
+    }
 
     Tilemap map = tilemap_load("assets/map.txt");
 

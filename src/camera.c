@@ -23,24 +23,23 @@ void camera_init(Camera *cam, Tilemap *map) {
     cam->y_margin = 150.0f;
 }
 
-void camera_follow(Camera *cam,
-    float target_x,
-    float target_y)
-{
+void camera_follow(Camera *cam, Player *player) {
+    //float target_x,
+    //float target_y) {
     float cam_target_x = cam->x;
     float cam_target_y = cam->y;
 
-    if (target_x - cam_target_x < cam->x_margin)
-        cam_target_x = target_x - cam->x_margin;
+    if (player->x - cam_target_x < cam->x_margin)
+        cam_target_x = player->x - cam->x_margin;
 
-    if (target_x - cam_target_x > WINDOW_WIDTH - cam->x_margin)
-        cam_target_x = target_x - (WINDOW_WIDTH - cam->x_margin);
+    if (player->x - cam_target_x >  WINDOW_WIDTH - cam->x_margin)
+        cam_target_x = player->x - (WINDOW_WIDTH - cam->x_margin);
 
-    if (target_y - cam_target_y < cam->y_margin)
-        cam_target_y = target_y - cam->y_margin;
+    if (player->y - cam_target_y < cam->y_margin)
+        cam_target_y = player->y - cam->y_margin;
 
-    if (target_y - cam_target_y > WINDOW_HEIGHT - cam->y_margin)
-        cam_target_y = target_y - (WINDOW_HEIGHT - cam->y_margin);
+    if (player->y - cam_target_y >  WINDOW_HEIGHT - cam->y_margin)
+        cam_target_y = player->y - (WINDOW_HEIGHT - cam->y_margin);
 
     cam_target_x = clamp(cam_target_x, 0.0f, cam->x_max);
     cam_target_y = clamp(cam_target_y, 0.0f, cam->y_max);
