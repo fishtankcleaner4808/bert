@@ -65,10 +65,7 @@ void enemy_update(Enemy *enemy, Tilemap *map) {
     }
 }
 
-//bool player_enemy_collision(void *player_ptr, Enemy *enemy) {
 bool player_enemy_collision(Player *player, Enemy *enemy) {
-    //Player *player = (Player *)player_ptr;
-
     SDL_FRect a = {
         player->x,
         player->y,

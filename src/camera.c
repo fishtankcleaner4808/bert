@@ -24,8 +24,6 @@ void camera_init(Camera *cam, Tilemap *map) {
 }
 
 void camera_follow(Camera *cam, Player *player) {
-    //float target_x,
-    //float target_y) {
     float cam_target_x = cam->x;
     float cam_target_y = cam->y;
 

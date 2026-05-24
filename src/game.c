@@ -144,8 +144,6 @@ int game_run(void) {
             }
 
             camera_follow(&cam, &player);
-                //player.x,
-                //player.y);
 
             render_game(renderer,
                 &map,
