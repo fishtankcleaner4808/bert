@@ -2,7 +2,19 @@
 #include <stdbool.h>
 #include <math.h>
 #include "constants.h"
-#include "tools.h"
+
+static float clamp(float v, float min, float max) {
+    if (v < min) return min;
+    if (v > max) return max;
+    return v;
+}
+
+static bool is_px_solid(Tilemap *map, int x, int y) {
+    if (x < 0 || y < 0 || x >= map->width || y >= map->height)
+        return true;
+
+    return map->tiles[y * map->width + x] == 1;
+}
 
 void player_init(Player *player) {
     player->x = 100;

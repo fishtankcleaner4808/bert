@@ -2,7 +2,10 @@
 #include <SDL2/SDL_ttf.h>
 #include <stdbool.h>
 #include "constants.h"
-#include "tools.h"
+
+static float lerp(float a, float b, float t) {
+    return a + (b - a) * t;
+}
 
 static void draw_text(SDL_Renderer *renderer,
     TTF_Font *font,
