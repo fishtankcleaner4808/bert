@@ -134,7 +134,8 @@ int game_run(void) {
                 player.prev_x = player.x;
                 player.prev_y = player.y;
 
-                player_update(&player, &map);
+                player_move_x(&player, &map);
+                player_move_y(&player, &map);
                 enemy_update(&enemy, &map);
 
                 if (player_enemy_collision(&player, &enemy))

@@ -29,7 +29,8 @@ void player_init(Player *player) {
     player->input_x = 0.0f;
 }
 
-void player_update(Player *p, Tilemap *map) {
+//void player_update(Player *p, Tilemap *map) {
+void player_move_x(Player *p, Tilemap *map) {
     if (p->input_x != 0.0f)
         p->x_velocity += p->input_x * MOVE_ACCEL * FIXED_DT;
     else if (p->x_velocity > 0) {
@@ -73,6 +74,9 @@ void player_update(Player *p, Tilemap *map) {
     }
 
     p->x = new_x;
+}
+
+void player_move_y(Player *p, Tilemap *map) {
     p->y_velocity += GRAVITY * FIXED_DT;
     p->y_velocity = clamp(p->y_velocity, -INFINITY, MAX_FALL_SPEED);
 
@@ -83,13 +87,24 @@ void player_update(Player *p, Tilemap *map) {
     p->on_ground = false;
 
     if (p->y_velocity > 0) {
-        int tile_bottom = (int)((new_y + SPRITE_SIZE) / TILE_SIZE);
+        int tile_bottom = (int)((new_y + SPRITE_SIZE - 1) / TILE_SIZE);
 
         for (int x = tile_left; x <= tile_right; x++)
             if (is_px_solid(map, x, tile_bottom)) {
                 new_y = tile_bottom * TILE_SIZE - SPRITE_SIZE;
                 p->y_velocity = 0;
                 p->on_ground = true;
+                break;
+            }
+    }
+
+    if (p->y_velocity < 0) {
+        int tile_top = (int)(new_y / TILE_SIZE);
+
+        for (int x = tile_left; x <= tile_right; x++)
+            if (is_px_solid(map, x, tile_top)) {
+                new_y = (tile_top + 1) * TILE_SIZE;
+                p->y_velocity = 0;
                 break;
             }
     }
